@@ -1,0 +1,40 @@
+version: "3.8"
+
+# SIP Proxy & Media Anchoring Lab
+# Kamailio (signaling) -> Asterisk (softswitch core) with rtpengine (media anchor)
+#
+# NOTE: This is a starter template. Replace network/IP values with your own
+# before deploying. Do not expose these services directly to the public
+# internet without hardening (TLS, fail2ban, ACLs).
+
+services:
+  kamailio:
+    image: kamailio/kamailio:latest
+    container_name: kamailio
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./configs/kamailio/kamailio.cfg:/etc/kamailio/kamailio.cfg:ro
+    depends_on:
+      - rtpengine
+      - asterisk
+
+  rtpengine:
+    image: drachtio/rtpengine:latest
+    container_name: rtpengine
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./configs/rtpengine/rtpengine.conf:/etc/rtpengine/rtpengine.conf:ro
+
+  asterisk:
+    image: andrius/asterisk:alpine
+    container_name: asterisk
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./configs/asterisk/pjsip.conf:/etc/asterisk/pjsip.conf:ro
+
+# network_mode: host is used here for simplicity with SIP/RTP NAT traversal
+# in a home-lab context. For production-style deployments, use explicit
+# port mappings and a defined bridge network instead.

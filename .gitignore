@@ -1,0 +1,11 @@
+# Never commit real configs with credentials or public IPs
+configs/kamailio/kamailio.cfg
+configs/rtpengine/rtpengine.conf
+configs/asterisk/pjsip.conf
+
+# Logs and captures
+*.pcap
+*.log
+
+# OS
+.DS_Store

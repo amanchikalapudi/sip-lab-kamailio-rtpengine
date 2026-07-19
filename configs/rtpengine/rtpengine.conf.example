@@ -1,0 +1,14 @@
+[rtpengine]
+; rtpengine media relay — starter template
+; Replace REPLACE_ME_* placeholders with your own environment values.
+
+table = 0
+interface = private/REPLACE_ME_LAN_IP
+listen-ng = 127.0.0.1:22222
+port-min = 30000
+port-max = 40000
+log-level = 6
+log-stderr = true
+
+; Enable if you need NAT traversal for endpoints behind a router
+; advertised-address = REPLACE_ME_PUBLIC_IP

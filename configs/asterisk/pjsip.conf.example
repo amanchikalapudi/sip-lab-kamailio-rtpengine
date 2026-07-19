@@ -1,0 +1,45 @@
+; Asterisk PJSIP configuration — starter template
+; Replace REPLACE_ME_* placeholders with your own environment values.
+
+[transport-udp]
+type=transport
+protocol=udp
+bind=0.0.0.0:5061
+
+; --- Example extension: 1001 --------------------------------------------
+[1001]
+type=endpoint
+context=internal
+disallow=all
+allow=ulaw,alaw
+auth=auth1001
+aors=1001
+
+[auth1001]
+type=auth
+auth_type=userpass
+password=REPLACE_ME_PASSWORD
+username=1001
+
+[1001]
+type=aor
+max_contacts=1
+
+; --- Example extension: 1002 --------------------------------------------
+[1002]
+type=endpoint
+context=internal
+disallow=all
+allow=ulaw,alaw
+auth=auth1002
+aors=1002
+
+[auth1002]
+type=auth
+auth_type=userpass
+password=REPLACE_ME_PASSWORD
+username=1002
+
+[1002]
+type=aor
+max_contacts=1
