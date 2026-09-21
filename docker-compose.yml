@@ -1,7 +1,7 @@
 version: "3.8"
 
 # SIP Proxy & Media Anchoring Lab
-# Kamailio (signaling) -> Asterisk (softswitch core) with rtpengine (media anchor)
+# Kamailio (signaling) -> FreeSWITCH (softswitch core) with rtpengine (media anchor)
 #
 # NOTE: This is a starter template. Replace network/IP values with your own
 # before deploying. Do not expose these services directly to the public
@@ -17,7 +17,7 @@ services:
       - ./configs/kamailio/kamailio.cfg:/etc/kamailio/kamailio.cfg:ro
     depends_on:
       - rtpengine
-      - asterisk
+      - freeswitch
 
   rtpengine:
     image: drachtio/rtpengine:latest
@@ -27,13 +27,16 @@ services:
     volumes:
       - ./configs/rtpengine/rtpengine.conf:/etc/rtpengine/rtpengine.conf:ro
 
-  asterisk:
-    image: andrius/asterisk:alpine
-    container_name: asterisk
+  freeswitch:
+    image: safarov/freeswitch:latest
+    container_name: freeswitch
     restart: unless-stopped
     network_mode: host
+    # Move the internal SIP profile to 5061 so it does not collide with Kamailio on 5060
+    entrypoint: ["/bin/sh", "-c", "sed -i 's/internal_sip_port=5060/internal_sip_port=5061/' /etc/freeswitch/vars.xml && exec freeswitch -nonat -c"]
     volumes:
-      - ./configs/asterisk/pjsip.conf:/etc/asterisk/pjsip.conf:ro
+      - ./configs/freeswitch/1001.xml:/etc/freeswitch/directory/default/1001.xml:ro
+      - ./configs/freeswitch/1002.xml:/etc/freeswitch/directory/default/1002.xml:ro
 
 # network_mode: host is used here for simplicity with SIP/RTP NAT traversal
 # in a home-lab context. For production-style deployments, use explicit

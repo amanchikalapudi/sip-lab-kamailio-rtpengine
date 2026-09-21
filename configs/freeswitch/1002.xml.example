@@ -1,0 +1,16 @@
+<!-- FreeSWITCH directory entry: extension 1002 — starter template -->
+<!-- Replace REPLACE_ME_PASSWORD with your own value. Never commit real credentials. -->
+<include>
+  <user id="1002">
+    <params>
+      <param name="password" value="REPLACE_ME_PASSWORD"/>
+    </params>
+    <variables>
+      <variable name="user_context" value="default"/>
+      <variable name="effective_caller_id_name" value="Extension 1002"/>
+      <variable name="effective_caller_id_number" value="1002"/>
+      <variable name="outbound_caller_id_name" value="Extension 1002"/>
+      <variable name="outbound_caller_id_number" value="1002"/>
+    </variables>
+  </user>
+</include>

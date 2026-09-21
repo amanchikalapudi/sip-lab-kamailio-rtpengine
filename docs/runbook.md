@@ -10,7 +10,7 @@ docker compose ps
 ## Verifying SIP registration
 
 ```bash
-docker exec -it asterisk asterisk -rx "pjsip show endpoints"
+docker exec -it freeswitch fs_cli -x "sofia status profile internal reg"
 docker exec -it kamailio kamctl ul show
 ```
 
