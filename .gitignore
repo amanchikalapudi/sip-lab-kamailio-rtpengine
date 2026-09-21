@@ -1,7 +1,8 @@
 # Never commit real configs with credentials or public IPs
 configs/kamailio/kamailio.cfg
 configs/rtpengine/rtpengine.conf
-configs/asterisk/pjsip.conf
+configs/freeswitch/1001.xml
+configs/freeswitch/1002.xml
 
 # Logs and captures
 *.pcap
